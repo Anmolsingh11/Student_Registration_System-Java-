@@ -1,0 +1,175 @@
+Vector maths in C#
+Vectoris a line drwaen between two points it is of two types and it has a length which is known as the Magnatude.
+magnatude = underroute of (x2 + y2)
+2d Vector:- It is made of two values x and y. which simply defines the distance from the origin in each ais direction.
+ 
+ Unity works on the left haded co-ordinate system.
+ 
+ 3d Vector:- It is made of three values x,y and z. here z simply represents the depth. and manetude will be:-
+ underrotue of(x2+y2+z2) 
+ we can find it with the help of magnitude function 
+ Vector3.Magnitude
+ to perform Dot product use:-
+ Vector3.Dot(VectorA,VectorB)
+ to perform Cross product use:-
+ Vector3.Cross(VectorA,VectorB)
+ To enable or disable a function we use:-
+  component.enabled = false;
+  to activa or deactivate a game object use:-
+  object.SetActive(True or False);
+  to check whethe an object is active or either its parent use:-
+  object.activeself
+  object.activeInHierarchy
+ Translate and rotation are two functions which are used to change the position of an object.
+ tranform.Translate(new Vector3 (0,0,1));
+ or
+ transform.Translate(new Vector3.forward * movespeed * Time.deltaTime);
+ 
+ To Rotate use 
+ transform.Rotate ( new Vector3 (0,5,1));
+ or 
+ tranform.Rotate (new Vector3.up * turnspeed * Time.deltaTime);
+ 
+ we can use the look at function to inform the main camera to look at a particular object in the scene.
+ to use LookAt function we need assign it a target use the following lines of code :-
+ 
+ public Transform target;
+ 
+ void Update()
+ {
+ tranform.LookAt(target);
+ }
+ 
+ Linear Interpolation:- interpolation means the process of injecting onw thing into another.
+ 
+ When making games it can  sometimes be useful to linearly interpolate between two values. This is done with a function called Lerp.
+ Linearly interpolating is finding a value that is some percentage between two given values
+ For example, we could linearly interpolate between the numbers 3 and 5 by 50%
+  to get the number 4. This is because 4 is 50% of the way between 3 and 5.
+  
+  // In this case, result = 4
+float result = Mathf.Lerp (3f, 5f, 0.5f);
+here 0.5 represents the percentage of the 3 and 5 that needs to be calculated.
+
+it is another example of the Lerp function:-
+Vector3 from = new Vector3 (1f, 2f, 3f);
+Vector3 to = new Vector3 (5f, 6f, 7f);
+
+// Here result = (4, 5, 6)
+Vector3 result = Vector3.Lerp (from, to, 0.75f);
+
+to smooth the lightning effect use
+light.intensity = Mathf.Lerp(light.intensity, 8f, 0.5f * Time.deltaTime);
+Destroy object :- 
+to remove game object at runtime we use the destroy function.
+we can also done this with the help of its second argument which is time delay. 
+ Destroy(gameobject,3f); :- use this if the script is derectly attached  to the removing object after 3 second the object will be removed.
+ 
+ or 
+ use the following code if we want to refer to that object.
+ public GameObject other;
+ 
+ void Update()
+ {
+ Destroy(other);
+ }
+ 
+ or 
+ use the following lines of code to remove the particular component.
+ void Update ()
+ {
+ Destroy(GetComponent<MeshRenderer>());
+ }
+ GetButton and GetKey:-
+ we use getbutton to chekc the specific button given us by the input manager.
+ GetButton:- it returns true when we firstly press the button.
+ GetButtonDown:-it returns true we keep holding the button.
+ GetButtonUp:-it returns true when we lift or release the button.
+ Input.GetButton("Jump");
+  we use getkey when we want to chekc for specific key of keyboard.
+  
+  Input.GetKeyDown(KeyCode.Space);
+  
+  GetAxis:-
+  it returnss a float value.
+  
+  horizontal = Input.GetAxis("Horizontal");
+  Vertical = Input.GetAxis("Vertical");
+  
+ void OnmouseDown():-
+ 
+ private Rigidbody rb; 
+ 
+ void awake()
+ {
+ rb = GetComponent <Rigidbody>();
+ }
+ 
+void OnmouseDown()
+{
+rb.AddForce(transform.forward * 500f);
+        rb.useGravity = true;
+}
+
+GetComponent<>:-
+it is simply used to get all the values and all the functions which are defind in other scripts. 
+
+
+DeltaTime:-
+Time.deltaTime is a function of time class which simply refers to the time between each update.
+it is useed for smoothning the movement and other effects.
+
+Data Types:-
+there are mainly two types of data types which are as follows :- 
+value and 					 
+1.int
+2. bool
+3.float
+4.Double
+5.char 
+6.Structs (Vector3,Quaternian)
+
+Reference
+classes(Transform ,GameObject)
+Instatntiate():-
+ this function is used to create clones of game object;
+ Instatntiate(Rigidbody.rb);
+
+ or
+ Instatntiate (Rigidbody.rb, Transform.tra,tra.Rotation);
+ 
+ Refering it as rigidbody
+ rocketInstance = Instantiate(rocketPrefab, barrelEnd.position, barrelEnd.rotation) as Rigidbody;
+            rocketInstance.AddForce(barrelEnd.forward * 5000);
+			
+Array:-
+ we can use array to define a number of game objects for the same script :-
+ GameObject[] players;
+ 
+ Invoke:-
+  this function is used to initialize something after a particular time.
+  Invoke("spawnObject",2)
+  spawnobejct is the function that we want to invoke after two seconds.
+  or
+  Invoke ("spawnObject",2,1)
+    spawnobejct is the function that we want to invoke after two seconds and again after each seond.
+	to stop invoke function use CancelInvoke("spawnObject");
+	
+Enumerations:-
+it is a special datatype which has specific subset of possible values.	
+enum Direction{South,North,East,West}; // all these has a value of zero.
+enum Direction{South=1,North,East,West}; // now all these has a value of 1,2,3,4.
+enum Direction : short {South,North,East,West}; // all these are now short datatype and has a value of zero.
+
+if we create a varialble of Direction then we have to give it a value from the above one's.
+
+Direction myDirection;
+myDirection = Direction.North;
+
+Switch statement:-
+in unity we use this for the Intelligence.
+Erorrs:-
+Assets\Scripts\GameController.cs(11,88): error CS1526: A new expression requires (), [], or {} after type
+
+Ans:-when you forget to add (),{} or [] in your program.
+
